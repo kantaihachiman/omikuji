@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>艦隊八幡社 毎日のご縁 Ver0.1 Live2D版</title>
+<style>
+:root{--bg1:#250b0b;--bg2:#641818;--gold:#f7d774;--gold2:#fff2b3;--red:#b91f2b;--paper:#fff8df;--ink:#3a2215;--brown:#6b3b1f;--green:#2f6b55}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;font-family:"Yu Mincho","Hiragino Mincho ProN","Noto Serif JP",serif;color:var(--paper);background:radial-gradient(circle at 50% 12%,rgba(255,224,126,.24),transparent 34%),linear-gradient(160deg,var(--bg1),var(--bg2) 56%,#220808)}
+body:before{content:"";position:fixed;inset:0;background-image:linear-gradient(45deg,rgba(255,255,255,.035) 25%,transparent 25%),linear-gradient(-45deg,rgba(255,255,255,.025) 25%,transparent 25%);background-size:34px 34px;opacity:.36;pointer-events:none}.app{position:relative;width:min(100vw,520px);height:100dvh;margin:0 auto;overflow:hidden;border-left:1px solid rgba(255,230,150,.2);border-right:1px solid rgba(255,230,150,.2)}
+.version{position:absolute;top:10px;right:12px;font-size:11px;opacity:.72;letter-spacing:.04em;z-index:40}.title{position:absolute;top:28px;left:50%;transform:translateX(-50%);width:92%;text-align:center;z-index:5}.title .sub{font-size:14px;letter-spacing:.22em;color:var(--gold2);text-shadow:0 0 8px rgba(255,215,120,.55)}.title h1{margin:8px 0 4px;font-size:clamp(28px,8vw,44px);letter-spacing:.12em;color:var(--gold);text-shadow:0 3px 0 rgba(64,24,8,.9),0 0 18px rgba(255,210,90,.45)}
+.torii{position:absolute;top:104px;left:50%;transform:translateX(-50%);width:82%;height:140px;opacity:.75;z-index:1}.torii:before,.torii:after{content:"";position:absolute;background:linear-gradient(#d84c38,#8e1717);box-shadow:inset 0 0 0 2px rgba(255,205,120,.22),0 10px 22px rgba(0,0,0,.22)}.torii:before{top:0;left:0;width:100%;height:18px;border-radius:8px}.torii:after{top:30px;left:8%;width:84%;height:14px;border-radius:6px}.pillar{position:absolute;top:38px;width:16px;height:112px;background:linear-gradient(90deg,#731515,#d84835,#8c1717);border-radius:6px 6px 2px 2px}.pillar.left{left:20%}.pillar.right{right:20%}
+#stage{position:absolute;inset:0;width:100%;height:100%;z-index:4;pointer-events:none}.aura{position:absolute;top:205px;left:50%;transform:translateX(-50%);width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(255,232,130,.30),transparent 66%);animation:pulse 3s infinite ease-in-out;z-index:2}@keyframes pulse{0%,100%{transform:translateX(-50%) scale(.95);opacity:.7}50%{transform:translateX(-50%) scale(1.08);opacity:1}}
+.speech{position:absolute;top:150px;left:24px;right:24px;z-index:20;background:rgba(255,248,223,.95);color:var(--ink);border:3px solid var(--brown);border-radius:18px;padding:12px 16px;box-shadow:0 8px 0 rgba(0,0,0,.20);font-weight:800;line-height:1.55;min-height:76px}.speech small{display:block;color:#8b5a33;font-size:12px;margin-bottom:3px}.screen{position:absolute;left:18px;right:18px;bottom:22px;z-index:30;background:rgba(255,248,223,.96);color:var(--ink);border:4px solid var(--brown);border-radius:24px;padding:18px 16px 16px;box-shadow:0 10px 0 rgba(0,0,0,.24)}
+.intro{text-align:center}.intro h2{margin:0 0 8px;color:#8e1717;font-size:24px}.intro p{margin:0 0 14px;font-weight:800;line-height:1.55}.mainBtn,.subBtn{appearance:none;border:0;font-family:inherit;font-weight:900;cursor:pointer}.mainBtn{width:100%;padding:16px 12px;border-radius:999px;background:linear-gradient(180deg,#fff0a6,#d99b24);color:#4a240e;border:3px solid #7c3d16;box-shadow:0 6px 0 #6a2f13;font-size:18px}.mainBtn:active,.subBtn:active{transform:translateY(4px);box-shadow:0 2px 0 #6a2f13}.result{display:none;text-align:center}.result.show{display:block}.fortune{display:inline-block;padding:8px 22px;margin:0 auto 12px;border-radius:999px;background:linear-gradient(90deg,#b91f2b,#e15931);color:#fff7d7;border:2px solid #7c1d17;box-shadow:0 0 18px rgba(247,215,116,.45);font-size:28px;font-weight:900;letter-spacing:.1em}.result .msg{font-size:16px;line-height:1.7;font-weight:800;margin:4px 0 12px}.infoGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}.info{background:#fff2c8;border:2px solid #b57b32;border-radius:14px;padding:10px}.info .label{font-size:11px;color:#7a4b25;font-weight:900}.info .value{margin-top:4px;font-size:16px;font-weight:900}.buttons{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}.subBtn{padding:12px 6px;border-radius:14px;background:var(--green);color:#fff8df;border:2px solid #254537;box-shadow:0 4px 0 #254537}.subBtn.red{background:var(--red);border-color:#6d1519;box-shadow:0 4px 0 #6d1519}
+.charm{position:absolute;top:-40px;width:34px;height:60px;background:#fff4cf;border:2px solid #d7a23c;border-radius:6px;z-index:25;opacity:0;box-shadow:0 5px 12px rgba(0,0,0,.22)}.charm:before{content:"御縁";position:absolute;inset:8px 0 0;text-align:center;color:#a41e22;font-size:12px;font-weight:900;writing-mode:vertical-rl;margin:auto}.charm.fly{animation:fly 1.4s ease-out forwards}@keyframes fly{0%{opacity:0;transform:translateY(0) rotate(0)}20%{opacity:1}100%{opacity:0;transform:translateY(520px) rotate(160deg)}}.flash{position:absolute;inset:0;background:rgba(255,244,190,.0);pointer-events:none;z-index:28}.flash.on{animation:flash .7s ease-out}@keyframes flash{0%{background:rgba(255,244,190,0)}35%{background:rgba(255,244,190,.72)}100%{background:rgba(255,244,190,0)}}
+.loading{position:absolute;left:50%;top:470px;transform:translateX(-50%);font-size:12px;opacity:.75;z-index:3}.fallback{display:none;position:absolute;left:50%;top:280px;transform:translateX(-50%);z-index:3;width:170px;height:210px;border-radius:50% 50% 38% 38%;background:linear-gradient(#fff3d4,#efbd8e);border:4px solid #5a321e;box-shadow:0 18px 18px rgba(0,0,0,.32)}.fallback:before{content:"烏帽子";position:absolute;top:-54px;left:52px;width:58px;height:70px;background:#151515;color:transparent;clip-path:polygon(50% 0,78% 28%,65% 100%,35% 100%,22% 28%)}.fallback:after{content:"・  ・\A  ◡";white-space:pre;position:absolute;top:64px;left:0;right:0;text-align:center;color:#24140e;font-size:32px;line-height:1.2}
+@media(max-height:720px){.speech{top:118px;font-size:13px;min-height:66px}.screen{padding:14px 13px 12px}.aura{top:180px}.loading{top:405px}.fortune{font-size:24px}.result .msg{font-size:14px}.infoGrid{gap:8px;margin:8px 0}.info{padding:8px}.title{top:18px}.torii{top:82px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="version">Ver0.1 Live2D組込版</div>
+  <div class="title"><div class="sub">艦隊八幡社</div><h1>毎日のご縁</h1></div>
+  <div class="torii"><div class="pillar left"></div><div class="pillar right"></div></div>
+  <div class="aura"></div>
+  <canvas id="stage"></canvas>
+  <div id="fallback" class="fallback"></div>
+  <div id="loading" class="loading">Live2D はちまん読込中…</div>
+  <div class="speech"><small>はちまん</small><span id="speechText">おはようございますなのです。今日のご縁をお届けするのです♪</span></div>
+  <div class="flash" id="flash"></div>
+  <div class="screen">
+    <div class="intro" id="intro">
+      <h2>今日のご縁を受け取る</h2>
+      <p>はちまんが、今日一日の小さなご縁をお届けするのです。</p>
+      <button class="mainBtn" id="drawBtn">おみくじを引く</button>
+    </div>
+    <div class="result" id="result">
+      <div class="fortune">ご縁吉</div>
+      <div class="msg">今日は新しい出会いが、幸運を運んでくれるでしょう。<br>焦らず、笑顔で一歩ずつ進むのです。</div>
+      <div class="infoGrid">
+        <div class="info"><div class="label">本日の応援武者</div><div class="value">摩耶</div></div>
+        <div class="info"><div class="label">ラッキーアイテム</div><div class="value">温かいお茶</div></div>
+      </div>
+      <div class="buttons"><button class="subBtn" id="againBtn">もう一度見る</button><button class="subBtn red" id="homeBtn">ホームへ戻る</button></div>
+    </div>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/pixi.js@6.5.10/dist/browser/pixi.min.js"></script>
+<script src="https://cubism.live2d.com/sdk-web/cubismcore/live2dcubismcore.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/pixi-live2d-display@0.4.0/dist/cubism4.min.js"></script>
+<script>
+const MODEL_PATH="export/hachiman.model3.json";
+const canvas=document.getElementById("stage"), speechText=document.getElementById("speechText"), loading=document.getElementById("loading"), fallback=document.getElementById("fallback");
+let app=null, model=null, core=null, params=[], action=null, mouthUntil=0;
+let v={Param:0,Param2:0,ParamMouthOpenY:0,ParamMouthForm:0,ParamBreath:0,ParamBodyAngleX:0,ParamBodyAngleY:0,ParamBodyAngleZ:0,ParamAngleX:0,ParamAngleY:0,ParamAngleZ:0,ParamEyeBallX:0,ParamEyeBallY:0};
+function cls(){if(window.PIXI&&PIXI.live2d&&PIXI.live2d.Live2DModel)return PIXI.live2d.Live2DModel;if(window.Live2DModel)return window.Live2DModel;return null}
+function idToString(id){if(id==null)return"";if(typeof id==="string")return id;if(id.s)return id.s;if(id.id)return id.id;if(id._id)return id._id;return String(id)}
+function collect(){core=model&&model.internalModel&&model.internalModel.coreModel;let out=[];try{for(let i=0;i<core.getParameterCount();i++)out.push({index:i,id:idToString(core.getParameterId(i))})}catch(e){}return out.filter(p=>p.id)}
+function find(id){return params.find(p=>p.id===id)}
+function setParam(id,val){const p=find(id);try{if(core&&core.setParameterValueById)core.setParameterValueById(id,Number(val))}catch(e){}try{if(p&&core&&core.setParameterValue)core.setParameterValue(p.index,Number(val))}catch(e){}}
+function speak(text,duration=1900){speechText.textContent=text;mouthUntil=performance.now()+duration}
+function startAction(name,text){action={name,start:performance.now()};if(text)speak(text,2300)}
+function stopAction(){action=null;placeModel()}
+function placeModel(){if(!model||!app)return;const w=app.renderer.width,h=app.renderer.height;model.scale.set(h<720?0.075:0.090);model.x=w*0.50;model.y=h*(h<720?0.64:0.61);if(model.anchor)model.anchor.set(0.5,0.92)}
+function zero(){Object.keys(v).forEach(k=>v[k]=0)}
+function apply(){Object.keys(v).forEach(k=>setParam(k,v[k]))}
+function motion(){if(!model)return;const now=performance.now(),t=now/1000;zero();v.ParamBreath=Math.sin(t*2)*.45;v.ParamBodyAngleZ=Math.sin(t*1.15)*2;v.ParamAngleZ=Math.sin(t*1.15)*.8;v.ParamAngleX=Math.sin(t*.8)*1.1;v.ParamAngleY=Math.sin(t*.9)*1;v.ParamEyeBallX=v.ParamAngleX/30;v.ParamEyeBallY=v.ParamAngleY/30;v.Param=-24+Math.sin(t*1.25+.8)*.7;v.Param2=-24+Math.sin(t*1.3)*.7;if(now<mouthUntil){v.ParamMouthOpenY=(Math.sin(t*18)>0)?1:.12;v.ParamMouthForm=Math.sin(t*8)*.65}
+if(action){const a=(now-action.start)/1000;if(action.name==="bow"){const b=Math.sin(Math.min(1,a/1.25)*Math.PI);v.ParamAngleY=-12*b;v.ParamBodyAngleX=-7*b;v.Param=-24+8*b;v.Param2=-24+8*b;if(a>1.35)stopAction()}if(action.name==="wave"){const b=Math.sin(a*10);v.Param=10+b*16;v.Param2=-24+Math.sin(a*5)*4;v.ParamBodyAngleZ=Math.sin(a*4)*5;if(a>1.8)stopAction()}if(action.name==="jump"){const b=Math.max(0,Math.sin(a*Math.PI*2.2));const base=app.renderer.height*(app.renderer.height<720?.64:.61);model.y=base-b*18;model.scale.y=model.scale.x*(1+b*.05);v.Param=-24+b*18;v.Param2=-24+b*18;if(a>1.1){model.scale.y=model.scale.x;stopAction()}}}apply();requestAnimationFrame(motion)}
+async function init(){try{const C=cls();if(!C)throw new Error("Live2D library not found");app=new PIXI.Application({view:canvas,resizeTo:document.querySelector(".app"),transparent:true,autoDensity:false,resolution:1});model=await C.from(MODEL_PATH,{autoInteract:false});app.stage.addChild(model);params=collect();placeModel();loading.style.display="none";speak("おはようございますなのです。今日のご縁をお届けするのです♪",2400);window.addEventListener("resize",()=>setTimeout(placeModel,120));motion()}catch(e){console.error(e);loading.textContent="Live2D読込失敗：仮表示に切替なのです";fallback.style.display="block";speak("Live2Dの読み込みに失敗したので、仮のはちまんでご案内するのです。",2600)}}
+function makeCharm(i){const c=document.createElement("div");c.className="charm fly";c.style.left=(12+Math.random()*76)+"%";c.style.animationDelay=(i*.08)+"s";document.querySelector(".app").appendChild(c);setTimeout(()=>c.remove(),1700)}
+function drawOmikuji(){startAction("bow","鈴を鳴らして、今日のご縁をお届けするのです。");for(let i=0;i<10;i++)makeCharm(i);setTimeout(()=>document.getElementById("flash").classList.add("on"),650);setTimeout(()=>{document.getElementById("intro").style.display="none";document.getElementById("result").classList.add("show");startAction("wave","ご縁吉なのです。今日は笑顔がご縁を運んでくれるのです♪")},1100);setTimeout(()=>document.getElementById("flash").classList.remove("on"),1600)}
+document.getElementById("drawBtn").onclick=drawOmikuji;document.getElementById("againBtn").onclick=()=>startAction("wave","今日のご縁は、ご縁吉なのです。温かいお茶で一息つくとよいのです。");document.getElementById("homeBtn").onclick=()=>startAction("bow","ホームへ戻る導線は、次の版で接続するのです。");document.querySelector(".app").addEventListener("pointerdown",e=>{if(e.target.closest("button"))return;startAction("jump","今日も来てくれてうれしいのです。")});init();
+</script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+{
+	"Version": 3,
+	"FileReferences": {
+		"Moc": "hachiman.moc3",
+		"Textures": [
+			"textures/texture_00.png"
+		],
+		"Physics": "hachiman.physics3.json",
+		"DisplayInfo": "hachiman.cdi3.json",
+		"MotionSync": "hachiman.motionsync3.json"
+	},
+	"Groups": [
+		{
+			"Target": "Parameter",
+			"Name": "LipSync",
+			"Ids": []
+		},
+		{
+			"Target": "Parameter",
+			"Name": "EyeBlink",
+			"Ids": [
+				"ParamEyeLOpen",
+				"ParamEyeROpen"
+			]
+		}
+	]
+}
