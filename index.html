@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<title>艦隊八幡社 今日のご縁 Ver0.2 応援武者カード版</title>
+<title>艦隊八幡社 今日のご縁 Ver0.4 艦番号・公式リンク・安全表示版</title>
 <style>
 :root{--bg1:#250b0b;--bg2:#641818;--gold:#f7d774;--gold2:#fff2b3;--red:#b91f2b;--paper:#fff8df;--ink:#3a2215;--brown:#6b3b1f;--green:#2f6b55;--navy:#18365b}
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;font-family:"Yu Mincho","Hiragino Mincho ProN","Noto Serif JP",serif;color:var(--paper);background:radial-gradient(circle at 50% 12%,rgba(255,224,126,.24),transparent 34%),linear-gradient(160deg,var(--bg1),var(--bg2) 56%,#220808)}
@@ -15,22 +15,22 @@ body:before{content:"";position:fixed;inset:0;background-image:linear-gradient(4
 .speech{position:absolute;top:139px;left:24px;right:24px;z-index:20;background:rgba(255,248,223,.95);color:var(--ink);border:3px solid var(--brown);border-radius:18px;padding:11px 16px;box-shadow:0 8px 0 rgba(0,0,0,.20);font-weight:800;line-height:1.5;min-height:72px}.speech small{display:block;color:#8b5a33;font-size:12px;margin-bottom:3px}
 .screen{position:absolute;left:14px;right:14px;bottom:14px;z-index:30;background:rgba(255,248,223,.97);color:var(--ink);border:4px solid var(--brown);border-radius:24px;padding:16px 14px 14px;box-shadow:0 10px 0 rgba(0,0,0,.24);max-height:52dvh;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#b57b32 transparent}
 .intro{text-align:center}.intro h2{margin:0 0 8px;color:#8e1717;font-size:23px}.intro p{margin:0 0 14px;font-weight:800;line-height:1.55}.mainBtn,.subBtn,.detailBtn{appearance:none;border:0;font-family:inherit;font-weight:900;cursor:pointer}.mainBtn{width:100%;padding:15px 12px;border-radius:999px;background:linear-gradient(180deg,#fff0a6,#d99b24);color:#4a240e;border:3px solid #7c3d16;box-shadow:0 6px 0 #6a2f13;font-size:18px}.mainBtn:active,.subBtn:active,.detailBtn:active{transform:translateY(3px)}
-.result{display:none;text-align:center}.result.show{display:block}.fortune{display:inline-block;padding:7px 22px;margin:0 auto 9px;border-radius:999px;background:linear-gradient(90deg,#b91f2b,#e15931);color:#fff7d7;border:2px solid #7c1d17;box-shadow:0 0 18px rgba(247,215,116,.45);font-size:27px;font-weight:900;letter-spacing:.1em}.result .msg{font-size:15px;line-height:1.65;font-weight:800;margin:4px 0 10px}.lucky{background:#fff2c8;border:2px solid #b57b32;border-radius:12px;padding:8px 10px;margin:8px 0 12px;font-size:14px;font-weight:900}.lucky span{color:#8e1717}
+.result{display:none;text-align:center}.result.show{display:block}.fortune{display:inline-block;padding:7px 22px;margin:0 auto 9px;border-radius:999px;background:linear-gradient(90deg,#b91f2b,#e15931);color:#fff7d7;border:2px solid #7c1d17;box-shadow:0 0 18px rgba(247,215,116,.45);font-size:27px;font-weight:900;letter-spacing:.1em}.result .msg{font-size:15px;line-height:1.65;font-weight:800;margin:4px 0 10px}.lucky{background:#fff2c8;border:2px solid #b57b32;border-radius:12px;padding:8px 10px;margin:8px 0 12px;font-size:14px;font-weight:900}.lucky span{color:#8e1717}.todayNote{margin:0 0 10px;padding:7px 10px;border-radius:10px;background:#f0e8d0;color:#75532e;font-size:12px;font-weight:900}.drawnBadge{display:inline-block;margin-bottom:7px;padding:4px 10px;border-radius:999px;background:#38634e;color:white;font-size:11px;font-weight:900}
 .mushaCard{text-align:left;background:linear-gradient(180deg,#fffaf0,#f4e2b6);border:3px solid #9b5d21;border-radius:18px;overflow:hidden;box-shadow:0 7px 0 rgba(93,48,16,.18);margin-top:10px}.mushaHead{display:grid;grid-template-columns:92px 1fr;gap:12px;align-items:center;padding:12px;background:linear-gradient(135deg,#6f1118,#b8202b);color:#fff8df}.badgeWrap{position:relative;width:92px;height:92px;border-radius:50%;background:radial-gradient(circle,#fff6c8,#d5a033 68%,#6b3516 70%);padding:5px;box-shadow:0 0 0 3px rgba(255,238,160,.7),0 6px 13px rgba(0,0,0,.25);cursor:pointer}.badgeWrap:after{content:"TAP";position:absolute;right:-4px;bottom:-4px;background:#fff8df;color:#8e1717;border:2px solid #7c3d16;border-radius:999px;padding:2px 6px;font-size:9px;font-weight:900}.badgeWrap img{display:block;width:100%;height:100%;object-fit:contain;border-radius:50%}.mushaKicker{font-size:11px;letter-spacing:.13em;color:#ffe8a0;font-weight:900}.mushaName{font-size:25px;font-weight:900;letter-spacing:.08em;margin:2px 0}.catch{font-size:13px;line-height:1.5;font-weight:900}.quote{margin:0;padding:11px 14px;background:#fff8df;color:#6d1b19;text-align:center;font-weight:900;line-height:1.6;border-bottom:1px solid #d9b46d}.cardBody{padding:12px 14px;color:#3a2215}.sectionTitle{display:flex;align-items:center;gap:7px;color:#7c271b;font-weight:900;font-size:15px;margin:0 0 6px}.sectionTitle.ship{color:var(--navy);margin-top:11px}.desc{font-size:13px;line-height:1.7;font-weight:700;margin:0}.shipBox{margin-top:7px;padding:10px 11px;border-radius:12px;background:#eef5fb;border:2px solid #7892ad}.shipName{font-size:17px;color:#173958;font-weight:900;margin-bottom:4px}.factRow{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}.fact{background:rgba(255,255,255,.7);border-radius:8px;padding:6px;text-align:center}.fact b{display:block;font-size:10px;color:#5c7185}.fact span{font-size:12px;font-weight:900}.detailBtn{width:100%;margin-top:10px;padding:10px;border-radius:12px;background:#7a4b25;color:#fff8df;border:2px solid #4e2b13;box-shadow:0 4px 0 #4e2b13}.detailPanel{display:none;margin-top:10px;padding-top:9px;border-top:1px dashed #b48a54}.detailPanel.open{display:block}.officialLink{display:block;margin-top:9px;padding:9px;text-align:center;border-radius:10px;background:var(--navy);color:white;text-decoration:none;font-weight:900;font-size:12px}
 .buttons{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:13px}.subBtn{padding:11px 6px;border-radius:14px;background:var(--green);color:#fff8df;border:2px solid #254537;box-shadow:0 4px 0 #254537}.subBtn.red{background:var(--red);border-color:#6d1519;box-shadow:0 4px 0 #6d1519}
 .charm{position:absolute;top:-40px;width:34px;height:60px;background:#fff4cf;border:2px solid #d7a23c;border-radius:6px;z-index:25;opacity:0;box-shadow:0 5px 12px rgba(0,0,0,.22)}.charm:before{content:"御縁";position:absolute;inset:8px 0 0;text-align:center;color:#a41e22;font-size:12px;font-weight:900;writing-mode:vertical-rl;margin:auto}.charm.fly{animation:fly 1.4s ease-out forwards}@keyframes fly{0%{opacity:0;transform:translateY(0) rotate(0)}20%{opacity:1}100%{opacity:0;transform:translateY(520px) rotate(160deg)}}.flash{position:absolute;inset:0;background:rgba(255,244,190,0);pointer-events:none;z-index:28}.flash.on{animation:flash .7s ease-out}@keyframes flash{0%{background:rgba(255,244,190,0)}35%{background:rgba(255,244,190,.72)}100%{background:rgba(255,244,190,0)}}
-.loading{position:absolute;left:50%;top:455px;transform:translateX(-50%);font-size:12px;opacity:.75;z-index:3}.fallback{display:none;position:absolute;left:50%;top:270px;transform:translateX(-50%);z-index:3;width:170px;height:210px;border-radius:50% 50% 38% 38%;background:linear-gradient(#fff3d4,#efbd8e);border:4px solid #5a321e;box-shadow:0 18px 18px rgba(0,0,0,.32)}.fallback:before{content:"烏帽子";position:absolute;top:-54px;left:52px;width:58px;height:70px;background:#151515;color:transparent;clip-path:polygon(50% 0,78% 28%,65% 100%,35% 100%,22% 28%)}.fallback:after{content:"・  ・\A  ◡";white-space:pre;position:absolute;top:64px;left:0;right:0;text-align:center;color:#24140e;font-size:32px;line-height:1.2}
+.loading{position:absolute;left:50%;top:455px;transform:translateX(-50%);font-size:12px;opacity:.75;z-index:3}.fallback{display:none;position:absolute;left:50%;top:245px;transform:translateX(-50%);z-index:3;width:auto;height:min(44dvh,300px);max-width:55%;object-fit:contain;filter:drop-shadow(0 16px 14px rgba(0,0,0,.30));pointer-events:none}.shipIdentity{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin:1px 0 6px}.hullNo{display:inline-block;padding:3px 8px;border-radius:7px;background:#173958;color:#fff;font-family:system-ui,sans-serif;font-size:14px;font-weight:900;letter-spacing:.06em}.shipName{font-size:17px;color:#173958;font-weight:900;margin:0}.officialLink.disabled{background:#697785;opacity:.8;pointer-events:none}
 @media(max-height:720px){.speech{top:112px;font-size:13px;min-height:64px}.screen{max-height:53dvh;padding:12px 11px}.aura{top:172px}.loading{top:395px}.fortune{font-size:23px}.result .msg{font-size:13px}.title{top:15px}.torii{top:76px}.mushaHead{grid-template-columns:78px 1fr}.badgeWrap{width:78px;height:78px}.mushaName{font-size:22px}}
 </style>
 </head>
 <body>
 <div class="app">
-  <div class="version">Ver0.2 応援武者カード版</div>
+  <div class="version">Ver0.4 艦番号・公式リンク・安全表示版</div>
   <div class="title"><div class="sub">艦隊八幡社</div><h1>今日のご縁</h1></div>
   <div class="torii"><div class="pillar left"></div><div class="pillar right"></div></div>
   <div class="aura"></div>
   <canvas id="stage"></canvas>
-  <div id="fallback" class="fallback"></div>
+  <img id="fallback" class="fallback" src="hachi_chara.png" alt="はちまん（Live2D読み込み失敗時の代替表示）" />
   <div id="loading" class="loading">Live2D はちまん読込中…</div>
   <div class="speech"><small>はちまん</small><span id="speechText">おはようございますなのです。今日のご縁をお届けするのです♪</span></div>
   <div class="flash" id="flash"></div>
@@ -41,44 +41,43 @@ body:before{content:"";position:fixed;inset:0;background-image:linear-gradient(4
       <button class="mainBtn" id="drawBtn">おみくじを引く</button>
     </div>
     <div class="result" id="result">
-      <div class="fortune">ご縁吉</div>
-      <div class="msg">今日は新しい出会いが、幸運を運んでくれるでしょう。<br>焦らず、笑顔で一歩ずつ進むのです。</div>
-      <div class="lucky">本日のラッキーアイテム：<span>温かいお茶</span></div>
+      <div class="drawnBadge" id="drawnBadge">本日のご縁</div>
+      <div class="fortune" id="fortuneText">ご縁吉</div>
+      <div class="msg" id="fortuneMessage"></div>
+      <div class="lucky">本日のラッキーアイテム：<span id="luckyItem"></span></div>
+      <div class="todayNote" id="todayNote"></div>
 
       <article class="mushaCard">
         <div class="mushaHead">
-          <div class="badgeWrap" id="badgeBtn" aria-label="摩耶王の応援メッセージを聞く">
-            <img src="musha_icon/maya_badge.png" alt="摩耶王のアイコン" />
+          <div class="badgeWrap" id="badgeBtn" aria-label="応援武者のメッセージを聞く">
+            <img id="mushaIcon" src="musha_icon/maya_badge.png" alt="本日の応援武者のアイコン" />
           </div>
           <div>
             <div class="mushaKicker">本日の応援武者</div>
-            <div class="mushaName">摩耶王</div>
-            <div class="catch">武者艦隊・総大将いずもの右腕</div>
+            <div class="mushaName" id="mushaName">摩耶王</div>
+            <div class="catch" id="mushaCatch"></div>
           </div>
         </div>
-        <p class="quote">「忠義は厚く、心は友。<br>今日も共に歩もう。」</p>
+        <p class="quote" id="mushaQuote"></p>
         <div class="cardBody">
           <h3 class="sectionTitle">⚔ 武者紹介</h3>
-          <p class="desc">護衛艦「まや」をモチーフにした武者。武者艦隊の右腕として、総大将いずもを支える忠義厚き存在です。</p>
+          <p class="desc" id="mushaDesc"></p>
 
           <div class="shipBox">
             <h3 class="sectionTitle ship">🚢 モチーフとなった艦艇</h3>
-            <div class="shipName">護衛艦「まや」 DDG-179</div>
-            <p class="desc">海上自衛隊の「まや」型イージス護衛艦。イージス装置や各種レーダー、ミサイル発射装置などを備え、艦隊の防空を支える護衛艦です。</p>
+            <div class="shipIdentity"><span class="hullNo" id="hullNo"></span><span class="shipName" id="shipName"></span></div>
+            <p class="desc" id="shipDesc"></p>
             <div class="factRow">
-              <div class="fact"><b>基準排水量</b><span>8,200トン</span></div>
-              <div class="fact"><b>全長</b><span>170m</span></div>
+              <div class="fact"><b id="factLabel1">分類</b><span id="factValue1"></span></div>
+              <div class="fact"><b id="factLabel2">役割</b><span id="factValue2"></span></div>
             </div>
             <button class="detailBtn" id="detailBtn">もう少し詳しく見る</button>
-            <div class="detailPanel" id="detailPanel">
-              <p class="desc">「まや」型は、DDG-179「まや」とDDG-180「はぐろ」からなる護衛艦の艦級です。速力は約30ノット、乗員は約300名とされています。</p>
-              <a class="officialLink" href="https://www.mod.go.jp/msdf/equipment/ships/ddg/maya/" target="_blank" rel="noopener noreferrer">海上自衛隊公式ページを見る</a>
-            </div>
+            <div class="detailPanel" id="detailPanel"><p class="desc" id="shipDetail"></p><a class="officialLink" id="officialLink" href="#" target="_blank" rel="noopener noreferrer">海上自衛隊公式ページを見る</a></div>
           </div>
         </div>
       </article>
 
-      <div class="buttons"><button class="subBtn" id="againBtn">もう一度見る</button><button class="subBtn red" id="homeBtn">ホームへ戻る</button></div>
+      <div class="buttons"><button class="subBtn" id="againBtn">今日の結果を見直す</button><button class="subBtn red" id="homeBtn">ホームへ戻る</button></div>
     </div>
   </div>
 </div>
@@ -103,15 +102,49 @@ function zero(){Object.keys(v).forEach(k=>v[k]=0)}
 function apply(){Object.keys(v).forEach(k=>setParam(k,v[k]))}
 function motion(){if(!model)return;const now=performance.now(),t=now/1000;zero();v.ParamBreath=Math.sin(t*2)*.45;v.ParamBodyAngleZ=Math.sin(t*1.15)*2;v.ParamAngleZ=Math.sin(t*1.15)*.8;v.ParamAngleX=Math.sin(t*.8)*1.1;v.ParamAngleY=Math.sin(t*.9)*1;v.ParamEyeBallX=v.ParamAngleX/30;v.ParamEyeBallY=v.ParamAngleY/30;v.Param=-24+Math.sin(t*1.25+.8)*.7;v.Param2=-24+Math.sin(t*1.3)*.7;if(now<mouthUntil){v.ParamMouthOpenY=(Math.sin(t*18)>0)?1:.12;v.ParamMouthForm=Math.sin(t*8)*.65}
 if(action){const a=(now-action.start)/1000;if(action.name==="bow"){const b=Math.sin(Math.min(1,a/1.25)*Math.PI);v.ParamAngleY=-12*b;v.ParamBodyAngleX=-7*b;v.Param=-24+8*b;v.Param2=-24+8*b;if(a>1.35)stopAction()}if(action.name==="wave"){const b=Math.sin(a*10);v.Param=10+b*16;v.Param2=-24+Math.sin(a*5)*4;v.ParamBodyAngleZ=Math.sin(a*4)*5;if(a>1.8)stopAction()}if(action.name==="jump"){const b=Math.max(0,Math.sin(a*Math.PI*2.2));const base=app.renderer.height*(app.renderer.height<720?.64:.60);model.y=base-b*18;model.scale.y=model.scale.x*(1+b*.05);v.Param=-24+b*18;v.Param2=-24+b*18;if(a>1.1){model.scale.y=model.scale.x;stopAction()}}}apply();requestAnimationFrame(motion)}
-async function init(){try{const C=cls();if(!C)throw new Error("Live2D library not found");app=new PIXI.Application({view:canvas,resizeTo:document.querySelector(".app"),transparent:true,autoDensity:false,resolution:1});model=await C.from(MODEL_PATH,{autoInteract:false});app.stage.addChild(model);params=collect();placeModel();loading.style.display="none";speak("おはようございますなのです。今日のご縁をお届けするのです♪",2400);window.addEventListener("resize",()=>setTimeout(placeModel,120));motion()}catch(e){console.error(e);loading.textContent="Live2D読込失敗：仮表示に切替なのです";fallback.style.display="block";speak("Live2Dの読み込みに失敗したので、仮のはちまんでご案内するのです。",2600)}}
+function showFallback(reason){console.warn("Live2D fallback:",reason);canvas.style.display="none";fallback.style.display="block";loading.style.display="none";speak("ただいまイラストのはちまんがご案内するのです。",2400)}
+async function init(){try{const C=cls();if(!C)throw new Error("Live2D library not found");app=new PIXI.Application({view:canvas,resizeTo:document.querySelector(".app"),transparent:true,autoDensity:false,resolution:1});const timeout=new Promise((_,reject)=>setTimeout(()=>reject(new Error("Live2D load timeout")),6000));model=await Promise.race([C.from(MODEL_PATH,{autoInteract:false}),timeout]);app.stage.addChild(model);params=collect();placeModel();fallback.style.display="none";canvas.style.display="block";loading.style.display="none";speak("おはようございますなのです。今日のご縁をお届けするのです♪",2400);window.addEventListener("resize",()=>setTimeout(placeModel,120));motion()}catch(e){console.error(e);try{if(app)app.destroy(false,{children:true,texture:false,baseTexture:false})}catch(_){}app=null;model=null;showFallback(e&&e.message?e.message:e)}}
+const STORAGE_KEY="kantai_hachimansha_omikuji_v04";
+const fortunes=[
+ {name:"神威大吉",message:"勢いのある一日です。迷った時は、胸を張って一歩進むのです。",line:"神威大吉なのです。今日は思い切って進むとよいのです！"},
+ {name:"ご縁吉",message:"人とのつながりが幸運を運びます。挨拶と感謝を大切にするのです。",line:"ご縁吉なのです。今日の出会いを大切にするのです♪"},
+ {name:"武運吉",message:"落ち着いた判断が成果につながります。準備を整えて挑むのです。",line:"武運吉なのです。慌てず、よく見て進むのです。"},
+ {name:"航路吉",message:"少し遠回りに見える道にも発見があります。自分の歩幅で進むのです。",line:"航路吉なのです。今日の航路にも、よい発見があるのです。"},
+ {name:"修行日和",message:"小さな積み重ねが力になる日です。ひとつ終えた自分を褒めるのです。",line:"修行日和なのです。一歩ずつ積み重ねるのです。"},
+ {name:"英気充填",message:"今日は無理をせず、力を蓄えることも大切です。温かくして過ごすのです。",line:"英気充填なのです。休むことも立派な務めなのです♪"}
+];
+const luckyItems=["温かいお茶","青い小物","お気に入りの帽子","甘いお菓子","磨いた靴","小さな手帳","白いハンカチ","海を感じる音楽","よく使うペン","丸いもの","温かい食事","昔から大切にしている物"];
+const mushaList=[
+ {id:"izumo",hullNo:"DDH-183",officialUrl:"https://www.mod.go.jp/msdf/equipment/ships/ddh/izumo/",icon:"izumo_badge.png",name:"いずも",catch:"武者艦隊を率いる総大将",quote:"我！横須賀武士団総大将！",desc:"武者艦隊を率いる総大将。堂々たる振る舞いで仲間を導き、困難な時ほど先頭に立ちます。",shipName:"護衛艦「いずも」",shipDesc:"海上自衛隊のいずも型護衛艦。広い飛行甲板を備え、多様な任務で艦隊を支えます。",f1:["分類","いずも型"],f2:["印象","大きな飛行甲板"],detail:"多くの人員や航空機を運用でき、災害派遣を含む幅広い場面で活躍する護衛艦です。"},
+ {id:"maya",hullNo:"DDG-179",officialUrl:"https://www.mod.go.jp/msdf/equipment/ships/ddg/maya/",icon:"maya_badge.png",name:"摩耶王",catch:"総大将いずもを支える右腕",quote:"忠義は厚く、心は友。今日も共に歩もう。",desc:"武者艦隊の右腕。総大将いずもを支える忠義厚き武者で、冷静な判断と仲間への思いやりを併せ持ちます。",shipName:"護衛艦「まや」",shipDesc:"海上自衛隊のまや型イージス護衛艦。高い情報処理能力と防空能力で艦隊を守ります。",f1:["分類","まや型"],f2:["役割","艦隊防空"],detail:"複数の脅威を捉え、味方の艦艇と情報を共有しながら守りを固める護衛艦です。"},
+ {id:"murasame",hullNo:"DD-101",officialUrl:"https://www.mod.go.jp/msdf/equipment/ships/dd/murasame/",icon:"murasame_badge.png",name:"むらさめ",catch:"疾風のごとく駆ける兄武者",quote:"疾風迅雷！兄武者むらさめ！",desc:"速度と勢いを大切にする兄武者。迷いを吹き飛ばすような明るさで、仲間の前進を後押しします。",shipName:"護衛艦「むらさめ」",shipDesc:"海上自衛隊のむらさめ型護衛艦。さまざまな任務に対応する汎用護衛艦です。",f1:["分類","むらさめ型"],f2:["特徴","汎用性"],detail:"対空・対潜・対水上など、多様な任務を担えるバランスの取れた護衛艦です。"},
+ {id:"ikazuchi",hullNo:"DD-107",officialUrl:"https://www.mod.go.jp/msdf/equipment/ships/dd/murasame/",icon:"ikazuchi_badge.png",name:"いかづち",catch:"雷雲の加護を受けし弟武者",quote:"兄上と共に、轟かす！",desc:"雷のような勢いを持つ弟武者。兄武者への敬意を胸に、力強く戦場を駆け抜けます。",shipName:"護衛艦「いかづち」",shipDesc:"海上自衛隊のむらさめ型護衛艦。機動力と汎用性を活かして任務にあたります。",f1:["分類","むらさめ型"],f2:["印象","雷の名"],detail:"旧海軍艦艇から受け継がれてきた名を持ち、現在も海を守る任務を担っています。"},
+ {id:"mogami",hullNo:"FFM-1",officialUrl:"https://www.mod.go.jp/msdf/equipment/ships/ffm/mogami/",icon:"mogami_badge.png",name:"もがみ",catch:"黒獅子の牙を持つ俊敏な武者",quote:"破邪顕正の金剛剣が、闇を切り裂くのだ！",desc:"黒獅子のような鋭さを持つ武者。軽快な動きで相手の隙を捉え、邪を断ち切ります。",shipName:"護衛艦「もがみ」",shipDesc:"海上自衛隊のもがみ型護衛艦。省人化と多機能性を意識して設計された新しい世代の護衛艦です。",f1:["分類","もがみ型"],f2:["特徴","多機能"],detail:"コンパクトな船体に多様な装備をまとめ、機雷戦を含む幅広い任務への対応が考えられています。"},
+ {id:"kumano",hullNo:"FFM-2",officialUrl:"https://www.mod.go.jp/msdf/equipment/ships/ffm/mogami/",icon:"kumano_badge.png",name:"くまの",catch:"八咫烏に導かれし武者",quote:"我が導きに、迷いなし！",desc:"進むべき方向を見失わない案内役。仲間の状況を見渡し、より良い道へ導きます。",shipName:"護衛艦「くまの」",shipDesc:"海上自衛隊のもがみ型護衛艦。多様な海域で柔軟に任務へ対応します。",f1:["分類","もがみ型"],f2:["象徴","導き"],detail:"艦名は熊野川に由来し、武者くまのには導きの象徴である八咫烏のイメージが重ねられています。"},
+ {id:"kirishima",hullNo:"DDG-174",officialUrl:"https://www.mod.go.jp/msdf/equipment/ships/ddg/kongo/",icon:"kirishima_badge.png",name:"きりしま",catch:"仲間と駆け抜ける熱き武者",quote:"金剛の志を胸に！共に駆け抜けるぜ！",desc:"熱さと親しみやすさを併せ持つ武者。仲間を鼓舞し、苦しい場面でも前向きな空気を作ります。",shipName:"護衛艦「きりしま」",shipDesc:"海上自衛隊のこんごう型イージス護衛艦。艦隊を空からの脅威から守ります。",f1:["分類","こんごう型"],f2:["役割","防空"],detail:"イージスシステムを備え、広い範囲を監視しながら艦隊の防空を担う護衛艦です。"},
+ {id:"teruzuki",hullNo:"DD-116",officialUrl:"https://www.mod.go.jp/msdf/equipment/ships/dd/akizuki/",icon:"teruzuki_badge.png",name:"てるづき",catch:"月の加護を届ける武者",quote:"月の加護をあなたへ！ママー！見ててね♪",desc:"明るく愛らしい雰囲気を持つ武者。月の光のような優しさで、仲間の心を照らします。",shipName:"護衛艦「てるづき」",shipDesc:"海上自衛隊のあきづき型護衛艦。ほかの艦艇を守る防空任務を得意とします。",f1:["分類","あきづき型"],f2:["象徴","月の光"],detail:"周囲の艦艇を守るための能力を備え、護衛隊の防空を支える役割を担います。"},
+ {id:"amagiri",hullNo:"DD-154",officialUrl:"https://www.mod.go.jp/msdf/equipment/ships/dd/asagiri/",icon:"amagiri_badge.png",name:"あまぎり",catch:"天霧を晴らし未来を照らす武者",quote:"天霧晴らし、我ここに！",desc:"視界を覆う霧を晴らすように、仲間の不安を取り除く武者。未来へ向かう道を照らします。",shipName:"護衛艦「あまぎり」",shipDesc:"海上自衛隊のあさぎり型護衛艦。長く多様な任務を支えてきた汎用護衛艦です。",f1:["分類","あさぎり型"],f2:["印象","霧を晴らす"],detail:"長年の運用を通して培われた経験を持ち、さまざまな海上任務に従事してきました。"},
+ {id:"yuugiri",hullNo:"DD-153",officialUrl:"https://www.mod.go.jp/msdf/equipment/ships/dd/asagiri/",icon:"yuugiri_badge.png",name:"ゆうぎり",catch:"夕霧の静けさをまとう武者",quote:"静かな時ほど、周りをよく見るんだ。",desc:"静かな観察眼を持つ武者。騒がしい状況でも落ち着きを失わず、仲間の安全を見守ります。",shipName:"護衛艦「ゆうぎり」",shipDesc:"海上自衛隊のあさぎり型護衛艦。多様な任務に対応する汎用護衛艦です。",f1:["分類","あさぎり型"],f2:["象徴","夕霧"],detail:"艦名が表す夕方の霧のように、静かで落ち着いた印象を武者の個性にも反映しています。"},
+ {id:"hashidate",hullNo:"ASY-91",officialUrl:"https://www.mod.go.jp/msdf/equipment/ships/asy/hashidate/",icon:"hashidate_badge.png",name:"はしだて",catch:"皆を迎えるおもてなし武者",quote:"おかえりなさいませ♪ご無事で何よりです。",desc:"帰ってきた仲間を温かく迎える武者。おもてなしと気配りで、艦隊八幡社に安らぎをもたらします。",shipName:"特務艇「はしだて」",shipDesc:"海上自衛隊の特務艇。迎賓や式典支援など、一般の護衛艦とは異なる役割を担います。",f1:["分類","特務艇"],f2:["役割","迎賓・支援"],detail:"来賓を迎えるための設備を備え、海上での公式行事や交流を支える特色ある艦艇です。"},
+ {id:"chiyoda",hullNo:"ASR-404",officialUrl:"https://www.mod.go.jp/msdf/equipment/ships/asr/chiyoda/",icon:"chiyoda_badge.png",name:"ちよだニキ",catch:"仲間を救い支える頼れる武者",quote:"困った時は任せな。ちゃんと連れて帰るぜ。",desc:"豪快で面倒見の良い支援武者。危険な場所へも迷わず向かい、仲間を守り連れ帰ります。",shipName:"潜水艦救難艦「ちよだ」",shipDesc:"海上自衛隊の潜水艦救難艦。潜水艦の乗員救助や関連作業を支援します。",f1:["分類","潜水艦救難艦"],f2:["役割","救難支援"],detail:"深い海で万一の事態が起きた際に、救難活動を行うための装備と能力を備えています。"}
+];
+function getJstDateKey(){const parts=new Intl.DateTimeFormat("en-CA",{timeZone:"Asia/Tokyo",year:"numeric",month:"2-digit",day:"2-digit"}).formatToParts(new Date());const o={};parts.forEach(x=>o[x.type]=x.value);return `${o.year}-${o.month}-${o.day}`}
+function randomPick(arr){return arr[Math.floor(Math.random()*arr.length)]}
+function loadSaved(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY)||"null")}catch(e){return null}}
+function saveResult(data){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(data))}catch(e){console.warn("保存できませんでした",e)}}
+function createTodayResult(){const musha=randomPick(mushaList),fortune=randomPick(fortunes);return {date:getJstDateKey(),mushaId:musha.id,fortune:fortune.name,message:fortune.message,line:fortune.line,lucky:randomPick(luckyItems),createdAt:Date.now()}}
+function findMusha(id){return mushaList.find(x=>x.id===id)||mushaList[0]}
+function renderResult(data,isRevisit=false){const m=findMusha(data.mushaId);document.getElementById("fortuneText").textContent=data.fortune;document.getElementById("fortuneMessage").textContent=data.message;document.getElementById("luckyItem").textContent=data.lucky;document.getElementById("todayNote").textContent=isRevisit?"本日はすでにご縁を受け取っています。同じ結果を何度でも見直せます。":"今日の運勢と応援武者を保存しました。日本時間の午前0時に新しいご縁へ更新されます。";document.getElementById("mushaIcon").src=`musha_icon/${m.icon}`;document.getElementById("mushaIcon").alt=`${m.name}のアイコン`;document.getElementById("mushaName").textContent=m.name;document.getElementById("mushaCatch").textContent=m.catch;document.getElementById("mushaQuote").textContent=`「${m.quote}」`;document.getElementById("mushaDesc").textContent=m.desc;document.getElementById("hullNo").textContent=m.hullNo||"";document.getElementById("shipName").textContent=m.shipName;document.getElementById("shipDesc").textContent=m.shipDesc;const officialLink=document.getElementById("officialLink");if(m.officialUrl){officialLink.href=m.officialUrl;officialLink.classList.remove("disabled");officialLink.textContent="海上自衛隊公式ページを見る"}else{officialLink.href="#";officialLink.classList.add("disabled");officialLink.textContent="公式ページ準備中"};document.getElementById("factLabel1").textContent=m.f1[0];document.getElementById("factValue1").textContent=m.f1[1];document.getElementById("factLabel2").textContent=m.f2[0];document.getElementById("factValue2").textContent=m.f2[1];document.getElementById("shipDetail").textContent=m.detail;document.getElementById("badgeBtn").setAttribute("aria-label",`${m.name}の応援メッセージを聞く`);document.getElementById("detailPanel").classList.remove("open");document.getElementById("detailBtn").textContent="もう少し詳しく見る";document.getElementById("intro").style.display="none";document.getElementById("result").classList.add("show");document.getElementById("screen").scrollTop=0;window.currentResult=data;window.currentMusha=m}
 function makeCharm(i){const c=document.createElement("div");c.className="charm fly";c.style.left=(12+Math.random()*76)+"%";c.style.animationDelay=(i*.08)+"s";document.querySelector(".app").appendChild(c);setTimeout(()=>c.remove(),1700)}
-function drawOmikuji(){startAction("bow","鈴を鳴らして、今日のご縁をお届けするのです。");for(let i=0;i<10;i++)makeCharm(i);setTimeout(()=>document.getElementById("flash").classList.add("on"),650);setTimeout(()=>{document.getElementById("intro").style.display="none";document.getElementById("result").classList.add("show");document.getElementById("screen").scrollTop=0;startAction("wave","ご縁吉なのです。本日の応援武者は、摩耶王なのです♪")},1100);setTimeout(()=>document.getElementById("flash").classList.remove("on"),1600)}
+function drawOmikuji(){const saved=loadSaved(),today=getJstDateKey();if(saved&&saved.date===today){renderResult(saved,true);startAction("wave",`本日のご縁はすでにお届け済みなのです。応援武者は、${findMusha(saved.mushaId).name}なのです♪`);return}const data=createTodayResult();saveResult(data);startAction("bow","鈴を鳴らして、今日のご縁をお届けするのです。");for(let i=0;i<10;i++)makeCharm(i);setTimeout(()=>document.getElementById("flash").classList.add("on"),650);setTimeout(()=>{renderResult(data,false);startAction("wave",`${data.fortune}なのです。本日の応援武者は、${findMusha(data.mushaId).name}なのです♪`)},1100);setTimeout(()=>document.getElementById("flash").classList.remove("on"),1600)}
+function prepareInitialState(){const saved=loadSaved(),today=getJstDateKey();if(saved&&saved.date===today){document.getElementById("drawBtn").textContent="今日のご縁を見る";document.querySelector("#intro h2").textContent="本日のご縁はお届け済み";document.querySelector("#intro p").innerHTML="今日のおみくじは、何度でも同じ結果を<br>見直すことができるのです。"}else{document.getElementById("drawBtn").textContent="おみくじを引く"}}
 document.getElementById("drawBtn").onclick=drawOmikuji;
-document.getElementById("againBtn").onclick=()=>{document.getElementById("screen").scrollTop=0;startAction("wave","今日のご縁は、ご縁吉なのです。温かいお茶で一息つくとよいのです。");};
+document.getElementById("againBtn").onclick=()=>{document.getElementById("screen").scrollTop=0;const d=window.currentResult,m=window.currentMusha;if(d&&m)startAction("wave",`今日のご縁は、${d.fortune}なのです。${m.name}と共に進むのです♪`)};
 document.getElementById("homeBtn").onclick=()=>startAction("bow","ホームへ戻る導線は、正式公開版で接続するのです。");
-document.getElementById("badgeBtn").onclick=()=>startAction("wave","摩耶王なのです。忠義は厚く、心は友。今日も共に歩むのです！");
-document.getElementById("detailBtn").onclick=()=>{const p=document.getElementById("detailPanel"),b=document.getElementById("detailBtn");p.classList.toggle("open");b.textContent=p.classList.contains("open")?"説明を閉じる":"もう少し詳しく見る";setTimeout(()=>document.getElementById("screen").scrollTo({top:document.getElementById("screen").scrollHeight,behavior:"smooth"}),80);};
+document.getElementById("badgeBtn").onclick=()=>{const m=window.currentMusha;if(m)startAction("wave",`${m.name}なのです。${m.quote}`)};
+document.getElementById("detailBtn").onclick=()=>{const p=document.getElementById("detailPanel"),b=document.getElementById("detailBtn");p.classList.toggle("open");b.textContent=p.classList.contains("open")?"説明を閉じる":"もう少し詳しく見る";setTimeout(()=>document.getElementById("screen").scrollTo({top:document.getElementById("screen").scrollHeight,behavior:"smooth"}),80)};
 document.querySelector(".app").addEventListener("pointerdown",e=>{if(e.target.closest("button,a,.badgeWrap"))return;startAction("jump","今日も来てくれてうれしいのです。");});
+prepareInitialState();
 init();
 </script>
 </body>
