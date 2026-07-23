@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>艦隊八幡社 今日のご縁 Ver0.73 はちまん授与演出版</title>
+<title>艦隊八幡社 今日のご縁 Ver0.74a サウンド再生修正版</title>
 <style>
 :root{--gold:#f4d67a;--paper:#fff9e7;--ink:#3d2617;--red:#8c1821;--pink:#b84c72;--navy:#173a60;--green:#315f4c}
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;font-family:"Yu Mincho","Hiragino Mincho ProN",serif;background:radial-gradient(circle at 50% 10%,#7d3a3f 0,#3a1014 48%,#18070a 100%);color:var(--paper)}
@@ -21,11 +21,29 @@
 @keyframes fxRaysIn{to{opacity:.86}}@keyframes fxSealAppear{0%{opacity:0;transform:translate(-50%,-50%) scale(.5) rotate(-30deg)}55%{opacity:1}100%{opacity:.82;transform:translate(-50%,-50%) scale(1) rotate(90deg)}}@keyframes fxOrbBorn{0%{opacity:0;transform:translate(-50%,-50%) scale(.2)}55%{opacity:1;transform:translate(-50%,-50%) scale(2.3)}100%{opacity:1;transform:translate(-50%,-50%) scale(1.45)}}@keyframes fxOrbFade{to{opacity:0;transform:translate(-50%,-50%) scale(3)}}@keyframes fxOfudaBorn{0%{opacity:0;transform:translate(-50%,-50%) scale(.2) rotate(-18deg)}60%{opacity:1;transform:translate(-50%,-70%) scale(1.15) rotate(3deg)}100%{opacity:1;transform:translate(-50%,-76%) scale(1) rotate(0)}}@keyframes fxTextIn{to{opacity:1;transform:none}}@keyframes fxCurtain{to{opacity:1}}@keyframes fxLine{to{width:82%}}@keyframes fxBurst{0%{opacity:0;transform:scale(.4)}45%{opacity:1}100%{opacity:0;transform:scale(1.8)}}@keyframes fxFlash{0%{opacity:0}20%{opacity:.96}100%{opacity:0}}@keyframes fxFall{0%{opacity:0;transform:translateY(-20px) rotate(0)}10%{opacity:1}100%{opacity:0;transform:translateY(115vh) rotate(720deg)}}
 @media(max-height:720px){.fxDialogue{top:28%}.fxCopy{top:35%}.fxSeal{top:40%;width:210px;height:210px}.fxOrb{top:46%}.fxOfuda{top:41%;height:112px}}
 @media(prefers-reduced-motion:reduce){.drawFx *{animation-duration:.01ms!important;animation-iteration-count:1!important}}
+
+/* Ver0.74 結果インパクト・サウンド同期 */
+.resultImpactFlash{position:absolute;inset:0;z-index:60;pointer-events:none;opacity:0;background:radial-gradient(circle at 50% 45%,#fff 0 12%,#ffe169dd 28%,#ffb31c55 52%,transparent 72%);mix-blend-mode:screen}
+.resultImpactFlash.on{animation:resultImpactFlash .34s ease-out}
+@keyframes resultImpactFlash{0%{opacity:0}15%{opacity:1}45%{opacity:.82}100%{opacity:0}}
+.app.resultShake{animation:resultShake .28s linear}
+@keyframes resultShake{0%,100%{transform:translate(0,0)}18%{transform:translate(-3px,1px)}36%{transform:translate(3px,-2px)}54%{transform:translate(-2px,2px)}72%{transform:translate(2px,-1px)}86%{transform:translate(-1px,0)}}
+.result.impact .card{animation:resultCardImpact .44s cubic-bezier(.18,.9,.22,1.35)}
+@keyframes resultCardImpact{0%{transform:scale(.94)}38%{transform:scale(1.085)}68%{transform:scale(.985)}100%{transform:scale(1)}}
+.result.specialImpact .card{animation:specialResultImpact .7s cubic-bezier(.18,.9,.22,1.25)}
+@keyframes specialResultImpact{0%{transform:scale(.9);filter:brightness(1)}30%{transform:scale(1.1);filter:brightness(1.5) drop-shadow(0 0 18px #ffd95a)}55%{transform:scale(.98);filter:brightness(1.1)}75%{transform:scale(1.045);filter:brightness(1.3) drop-shadow(0 0 12px #fff)}100%{transform:scale(1);filter:none}}
+.drawFx.finish .fxRays{opacity:.9;animation:fxRaysFinish .7s ease-out forwards}
+@keyframes fxRaysFinish{0%{transform:rotate(0) scale(.8);opacity:0}30%{opacity:1}100%{transform:rotate(18deg) scale(1.25);opacity:0}}
+@media(prefers-reduced-motion:reduce){.app.resultShake,.result.impact .card,.result.specialImpact .card,.resultImpactFlash.on{animation:none!important}}
 </style>
 </head>
 <body>
 <div class="app">
-<div class="version">Ver0.73 はちまん授与演出版</div>
+<div class="version">Ver0.74a サウンド再生修正版</div><div id="resultImpactFlash" class="resultImpactFlash"></div>
+<audio id="bgmMiyabi" src="audio/Miyabi.wav" preload="auto"></audio>
+<audio id="seKoto" src="audio/koto_glissando.mp3" preload="auto"></audio>
+<audio id="voiceFemale" src="audio/female_ou.mp3" preload="auto"></audio>
+<audio id="voiceMale" src="audio/male_ou.mp3" preload="auto"></audio>
 <div class="title"><small>艦隊八幡社</small><h1>今日のご縁</h1></div>
 <div class="torii"><div class="pillar l"></div><div class="pillar r"></div></div><div class="aura"></div>
 <canvas id="stage"></canvas><img id="fallback" class="fallback" src="hachi_chara.png" alt="はちまん"><div id="loading" class="loading">Live2D はちまん読込中…</div>
@@ -42,6 +60,126 @@ const MODEL_PATH="export/hachiman.model3.json",canvas=document.getElementById("s
 function cls(){return window.PIXI&&PIXI.live2d&&PIXI.live2d.Live2DModel?PIXI.live2d.Live2DModel:window.Live2DModel||null}function idToString(id){return id==null?"":typeof id==="string"?id:id.s||id.id||id._id||String(id)}function collect(){core=model?.internalModel?.coreModel;let out=[];try{for(let i=0;i<core.getParameterCount();i++)out.push({index:i,id:idToString(core.getParameterId(i))})}catch(e){}return out.filter(p=>p.id)}function find(id){return params.find(p=>p.id===id)}function setParam(id,val){const p=find(id);try{core?.setParameterValueById?.(id,Number(val))}catch(e){}try{if(p)core?.setParameterValue?.(p.index,Number(val))}catch(e){}}function speak(text,d=1900){speechText.textContent=text;mouthUntil=performance.now()+d}function startAction(name,text){action={name,start:performance.now()};if(text)speak(text,2300)}function stopAction(){action=null;placeModel()}function placeModel(){if(!model||!app)return;const w=app.renderer.width,h=app.renderer.height;model.scale.set(h<720?.073:.088);model.x=w*.5;model.y=h*(h<720?.64:.60);model.anchor?.set(.5,.92)}function zero(){Object.keys(v).forEach(k=>v[k]=0)}function apply(){Object.keys(v).forEach(k=>setParam(k,v[k]))}
 function motion(){if(!model)return;const now=performance.now(),t=now/1000;zero();v.ParamBreath=Math.sin(t*2)*.45;v.ParamBodyAngleZ=Math.sin(t*1.15)*2;v.ParamAngleZ=Math.sin(t*1.15)*.8;v.ParamAngleX=Math.sin(t*.8)*1.1;v.ParamAngleY=Math.sin(t*.9);v.ParamEyeBallX=v.ParamAngleX/30;v.ParamEyeBallY=v.ParamAngleY/30;v.Param=-24+Math.sin(t*1.25+.8)*.7;v.Param2=-24+Math.sin(t*1.3)*.7;if(now<mouthUntil){v.ParamMouthOpenY=Math.sin(t*18)>0?1:.12;v.ParamMouthForm=Math.sin(t*8)*.65}if(action){const a=(now-action.start)/1000;if(action.name==="bow"){const b=Math.sin(Math.min(1,a/1.25)*Math.PI);v.ParamAngleY=-12*b;v.ParamBodyAngleX=-7*b;v.Param=-24+8*b;v.Param2=-24+8*b;if(a>1.35)stopAction()}else if(action.name==="wave"){v.Param=10+Math.sin(a*10)*16;v.Param2=-24+Math.sin(a*5)*4;v.ParamBodyAngleZ=Math.sin(a*4)*5;if(a>1.8)stopAction()}else if(action.name==="jump"){const b=Math.max(0,Math.sin(a*Math.PI*2.2));const base=app.renderer.height*(app.renderer.height<720?.64:.60);model.y=base-b*18;model.scale.y=model.scale.x*(1+b*.05);v.Param=-24+b*18;v.Param2=-24+b*18;if(a>1.1){model.scale.y=model.scale.x;stopAction()}}}apply();requestAnimationFrame(motion)}
 async function init(){try{const C=cls();if(!C)throw Error("Live2D library not found");app=new PIXI.Application({view:canvas,resizeTo:document.querySelector(".app"),transparent:true,resolution:1});model=await Promise.race([C.from(MODEL_PATH,{autoInteract:false}),new Promise((_,r)=>setTimeout(()=>r(Error("timeout")),6000))]);app.stage.addChild(model);params=collect();placeModel();loading.style.display="none";window.addEventListener("resize",()=>setTimeout(placeModel,120));motion();speak("今日はどちらになさいますか？",2200)}catch(e){canvas.style.display="none";fallback.style.display="block";loading.style.display="none";speak("イラストのはちまんがご案内するのです。",2200)}}
+
+
+// Ver0.74b サウンド制御（ローカルHTML安定再生版）
+let soundUnlocked=false;
+const audioIds=['bgmMiyabi','seKoto','voiceMale','voiceFemale'];
+
+function clampVolume(value){return Math.max(0,Math.min(1,value))}
+function getAudio(id){return document.getElementById(id)}
+
+// 最初のタッチ／クリック時に音声をブラウザへ認識させる。
+// file:// で開いた場合も、以後の遅延再生を安定させるための処理。
+async function unlockSound(){
+  if(soundUnlocked)return true;
+  soundUnlocked=true;
+  for(const id of audioIds){
+    const el=getAudio(id);
+    if(!el)continue;
+    const oldMuted=el.muted,oldVolume=el.volume;
+    try{
+      el.muted=true;
+      el.volume=0;
+      el.currentTime=0;
+      const p=el.play();
+      if(p&&p.then)await p.catch(()=>{});
+      el.pause();
+      el.currentTime=0;
+    }catch(e){console.warn('音声の事前読込に失敗:',id,e)}
+    el.muted=oldMuted;
+    el.volume=oldVolume;
+  }
+  return true;
+}
+document.addEventListener('pointerdown',unlockSound,{once:true,capture:true});
+document.addEventListener('keydown',unlockSound,{once:true,capture:true});
+
+function restartAudio(el,volume=1){
+  if(!el)return;
+  try{
+    el.pause();
+    el.currentTime=0;
+    el.muted=false;
+    el.volume=clampVolume(volume);
+    const p=el.play();
+    if(p&&p.catch)p.catch(e=>console.warn('音声を再生できません:',el.currentSrc||el.src,e));
+  }catch(e){console.warn('音声再生エラー:',e)}
+}
+
+// 掛け声はHTML Audioを2枚重ね、Web Audioを使わず迫力を出す。
+function playLayeredVoice(sourceEl,volume=1){
+  if(!sourceEl)return;
+  restartAudio(sourceEl,volume);
+  const layer=sourceEl.cloneNode(true);
+  layer.removeAttribute('id');
+  layer.preload='auto';
+  layer.volume=clampVolume(volume*.82);
+  layer.currentTime=0;
+  document.body.appendChild(layer);
+  setTimeout(()=>{
+    const p=layer.play();
+    if(p&&p.catch)p.catch(e=>console.warn('掛け声の重ね再生に失敗:',e));
+  },24);
+  const cleanup=()=>layer.remove();
+  layer.addEventListener('ended',cleanup,{once:true});
+  setTimeout(cleanup,6000);
+}
+
+function setBgmLevel(value,time=.15){
+  const el=getAudio('bgmMiyabi');
+  if(!el)return;
+  const from=Number.isFinite(el.volume)?el.volume:.88;
+  const to=clampVolume(value);
+  const duration=Math.max(0,time*1000);
+  if(duration===0){el.volume=to;return}
+  const start=performance.now();
+  const tick=now=>{
+    const t=Math.min(1,(now-start)/duration);
+    el.volume=clampVolume(from+(to-from)*t);
+    if(t<1)requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+}
+
+function playDrawBgm(){
+  unlockSound();
+  const bgm=getAudio('bgmMiyabi');
+  if(!bgm)return;
+  bgm.volume=.88;
+  restartAudio(bgm,.88);
+}
+function stopDrawBgm(){
+  const bgm=getAudio('bgmMiyabi');
+  if(!bgm)return;
+  setBgmLevel(0,1.05);
+  setTimeout(()=>{
+    bgm.pause();
+    bgm.currentTime=0;
+    bgm.volume=.88;
+  },1150);
+}
+function triggerResultImpact(special=false,secondary=false){
+  const app=document.querySelector('.app'),result=document.getElementById('result'),flash=document.getElementById('resultImpactFlash');
+  flash.classList.remove('on');void flash.offsetWidth;flash.classList.add('on');
+  if(!secondary){app.classList.remove('resultShake');void app.offsetWidth;app.classList.add('resultShake')}
+  result.classList.remove('impact','specialImpact');void result.offsetWidth;result.classList.add(special?'specialImpact':'impact');
+  setTimeout(()=>result.classList.remove('impact','specialImpact'),special?760:500);
+  setTimeout(()=>{flash.classList.remove('on');app.classList.remove('resultShake')},380)
+}
+function playResultSound(type,special=false){
+  unlockSound();
+  setBgmLevel(.12,.25);
+  const koto=getAudio('seKoto'),male=getAudio('voiceMale'),female=getAudio('voiceFemale');
+  restartAudio(koto,.72);
+  if(special){
+    setTimeout(()=>{playLayeredVoice(male,1);triggerResultImpact(true,false)},130);
+    setTimeout(()=>{playLayeredVoice(female,1);triggerResultImpact(true,true)},360);
+  }else{
+    setTimeout(()=>{playLayeredVoice(type==='musha'?male:female,1);triggerResultImpact(false,false)},140);
+  }
+  stopDrawBgm();
+}
 
 let drawFxTimers=[];function fxLater(fn,ms){drawFxTimers.push(setTimeout(fn,ms))}function clearDrawFx(){drawFxTimers.forEach(clearTimeout);drawFxTimers=[];const fx=document.getElementById("drawFx");fx.className="drawFx";document.getElementById("fxConfetti").innerHTML=""}
 function makeFxConfetti(type,special=false){const wrap=document.getElementById("fxConfetti");wrap.innerHTML="";const count=special?68:38;for(let i=0;i<count;i++){const c=document.createElement("i");c.style.left=Math.random()*100+"%";c.style.setProperty("--dur",1.8+Math.random()*1.8+"s");c.style.setProperty("--delay",Math.random()*.45+"s");if(special)c.style.background=["#ff6666","#ffe268","#77e6b3","#74d9ff","#bd8cff","#ff97d6"][i%6];else if(type==="megami")c.style.background=i%2?"#ff94bd":"#ffd7e6";else c.style.background=i%2?"#ffe071":"#fff2ba";wrap.appendChild(c)}}
@@ -122,7 +260,7 @@ function pairInfo(){if(!save.today.musha||!save.today.megami)return null;const k
 function registerPair(){const p=pairInfo();if(!p)return false;const isNew=registerUnique(save.discoveredPairs,p.key);if(isNew){save.history.unshift({date:todayJST(),pair:p.key});save.history=save.history.slice(0,30)}saveData(save);return isNew}
 function updateHomeStatus(showNew=false){const ms=save.today.musha?character("musha",save.today.musha.id):null,gs=save.today.megami?character("megami",save.today.megami.id):null;document.getElementById("mushaStatus").textContent=ms?`${ms.name}（済）`:"未使用";document.getElementById("megamiStatus").textContent=gs?`${gs.name}（済）`:"未使用";const p=pairInfo(),box=document.getElementById("pairBox"),badge=document.getElementById("newBadge");if(p){box.classList.add("show");document.getElementById("pairNames").textContent=`⚔ ${p.m.name} × 🌸 ${p.g.name}`;document.getElementById("pairMessage").textContent=p.special?`【${p.special.title}】${p.special.message}`:"二つのご縁が結ばれました。今日一日、力と安らぎが共にあります。";badge.classList.toggle("show",showNew)}else{box.classList.remove("show");badge.classList.remove("show")}}
 function showSection(name){document.getElementById("intro").style.display=name==="intro"?"block":"none";document.getElementById("result").classList.toggle("show",name==="result");document.getElementById("collection").classList.toggle("show",name==="collection");document.getElementById("panel").scrollTop=0}
-function draw(type){if(window.drawBusy)return;window.drawBusy=true;let data=save.today[type];let isFresh=false;if(!data){const c=pick(type==="musha"?musha:megami);data={id:c.id,fortune:pick(fortunes[type]),lucky:pick(luckyItems)};save.today[type]=data;registerUnique(type==="musha"?save.discoveredMusha:save.discoveredMegami,c.id);saveData(save);isFresh=true}const list=type==="musha"?musha:megami,c=list.find(x=>x.id===data.id)||list[0];if(isFresh){startAction("bow","今日のご縁を授けるのです。");playHachimanDrawEffect(type)}setTimeout(()=>{showSection("result");revealResult();const tag=document.getElementById("typeTag"),head=document.getElementById("cardHead");tag.className=`typeTag ${type}`;head.className=`cardHead ${type}`;tag.textContent=type==="musha"?"⚔ 武者みくじ":"🌸 女神くじ";document.getElementById("fortune").textContent=data.fortune;document.getElementById("message").textContent=messages[type];document.getElementById("role").textContent=c.role;document.getElementById("name").textContent=c.name;document.getElementById("quote").textContent=`「${c.quote}」`;if(!data.lucky){data.lucky=pick(luckyItems);saveData(save)}document.getElementById("luckyItem").textContent=data.lucky;const d=type==="musha"?mushaDetails[c.id]:null;const card=document.getElementById("resultCard"),shipBox=document.getElementById("shipBox");card.classList.toggle("characterOnly",type!=="musha");document.getElementById("characterDesc").textContent=type==="musha"?(d?.desc||c.role):(megamiDescriptions[c.id]||c.role);if(d){shipBox.style.display="block";document.getElementById("hullNo").textContent=d.hullNo||"";document.getElementById("shipName").textContent=d.shipName||"";document.getElementById("shipDesc").textContent=d.shipDesc||"";document.getElementById("factLabel1").textContent=d.f1?.[0]||"分類";document.getElementById("factValue1").textContent=d.f1?.[1]||"";document.getElementById("factLabel2").textContent=d.f2?.[0]||"役割";document.getElementById("factValue2").textContent=d.f2?.[1]||"";document.getElementById("shipDetail").textContent=d.detail||"";const link=document.getElementById("officialLink");if(d.officialUrl){link.href=d.officialUrl;link.classList.remove("disabled");link.textContent="海上自衛隊公式ページを見る"}else{link.href="#";link.classList.add("disabled");link.textContent="公式ページ準備中"}}else{shipBox.style.display="none"}document.getElementById("detailPanel").classList.remove("open");document.getElementById("detailBtn").textContent="もう少し詳しく見る";document.getElementById("icon").src=(type==="musha"?"musha_icon/":"megami_icon/")+c.icon;document.getElementById("icon").alt=c.name;document.getElementById("note").textContent=isFresh?"本日のご縁を記録しました。同じ種類のおみくじは、日本時間の午前0時まで同じ結果です。":"本日すでに結ばれたご縁を再表示しています。";let newPair=false;if(save.today.musha&&save.today.megami)newPair=registerPair();updateHomeStatus(newPair);const p=pairInfo(),isSpecial=!!p?.special;document.getElementById("pairBox").classList.toggle("special",isSpecial);if(isSpecial&&newPair){setTimeout(playSpecialDrawEffect,500);startAction("wave","これは特別なご縁なのです！ 新しいご縁が結ばれたのです♪")}else if(newPair){startAction("wave","新しい組み合わせのご縁なのです♪")}else if(isFresh){startAction("wave",`${c.name}とのご縁なのです♪`)}else{startAction("wave","今日は同じ結果なのです。何度でも見直せるのです♪")}endHachimanDrawEffect();window.drawBusy=false},isFresh?4200:0)}
+function draw(type){if(window.drawBusy)return;window.drawBusy=true;let data=save.today[type];let isFresh=false;if(!data){const c=pick(type==="musha"?musha:megami);data={id:c.id,fortune:pick(fortunes[type]),lucky:pick(luckyItems)};save.today[type]=data;registerUnique(type==="musha"?save.discoveredMusha:save.discoveredMegami,c.id);saveData(save);isFresh=true}const list=type==="musha"?musha:megami,c=list.find(x=>x.id===data.id)||list[0];playDrawBgm();startAction("bow","今日のご縁を授けるのです。");playHachimanDrawEffect(type);setTimeout(()=>{showSection("result");revealResult();const tag=document.getElementById("typeTag"),head=document.getElementById("cardHead");tag.className=`typeTag ${type}`;head.className=`cardHead ${type}`;tag.textContent=type==="musha"?"⚔ 武者みくじ":"🌸 女神くじ";document.getElementById("fortune").textContent=data.fortune;document.getElementById("message").textContent=messages[type];document.getElementById("role").textContent=c.role;document.getElementById("name").textContent=c.name;document.getElementById("quote").textContent=`「${c.quote}」`;if(!data.lucky){data.lucky=pick(luckyItems);saveData(save)}document.getElementById("luckyItem").textContent=data.lucky;const d=type==="musha"?mushaDetails[c.id]:null;const card=document.getElementById("resultCard"),shipBox=document.getElementById("shipBox");card.classList.toggle("characterOnly",type!=="musha");document.getElementById("characterDesc").textContent=type==="musha"?(d?.desc||c.role):(megamiDescriptions[c.id]||c.role);if(d){shipBox.style.display="block";document.getElementById("hullNo").textContent=d.hullNo||"";document.getElementById("shipName").textContent=d.shipName||"";document.getElementById("shipDesc").textContent=d.shipDesc||"";document.getElementById("factLabel1").textContent=d.f1?.[0]||"分類";document.getElementById("factValue1").textContent=d.f1?.[1]||"";document.getElementById("factLabel2").textContent=d.f2?.[0]||"役割";document.getElementById("factValue2").textContent=d.f2?.[1]||"";document.getElementById("shipDetail").textContent=d.detail||"";const link=document.getElementById("officialLink");if(d.officialUrl){link.href=d.officialUrl;link.classList.remove("disabled");link.textContent="海上自衛隊公式ページを見る"}else{link.href="#";link.classList.add("disabled");link.textContent="公式ページ準備中"}}else{shipBox.style.display="none"}document.getElementById("detailPanel").classList.remove("open");document.getElementById("detailBtn").textContent="もう少し詳しく見る";document.getElementById("icon").src=(type==="musha"?"musha_icon/":"megami_icon/")+c.icon;document.getElementById("icon").alt=c.name;document.getElementById("note").textContent=isFresh?"本日のご縁を記録しました。同じ種類のおみくじは、日本時間の午前0時まで同じ結果です。":"本日すでに結ばれたご縁を再表示しています。";let newPair=false;if(save.today.musha&&save.today.megami)newPair=registerPair();updateHomeStatus(newPair);const p=pairInfo(),isSpecial=!!p?.special;document.getElementById("pairBox").classList.toggle("special",isSpecial);playResultSound(type,isSpecial);if(isSpecial){setTimeout(playSpecialDrawEffect,500);startAction("wave",newPair?"これは特別なご縁なのです！ 新しいご縁が結ばれたのです♪":"今日の特別なご縁を、もう一度お届けするのです♪")}else if(newPair){startAction("wave","新しい組み合わせのご縁なのです♪")}else if(isFresh){startAction("wave",`${c.name}とのご縁なのです♪`)}else{startAction("wave","今日は同じ結果なのです。音と演出も何度でも楽しめるのです♪")}endHachimanDrawEffect();window.drawBusy=false},4200)}
 function openCollection(){document.getElementById("mushaCount").textContent=`${save.discoveredMusha.length} / ${musha.length}`;document.getElementById("megamiCount").textContent=`${save.discoveredMegami.length} / ${megami.length}`;document.getElementById("pairCount").textContent=`${save.discoveredPairs.length} / ${musha.length*megami.length}`;document.getElementById("specialCount").textContent=save.discoveredPairs.filter(k=>specialPairs[k]).length;const h=document.getElementById("history");h.innerHTML=save.history.length?"<strong>最近結ばれたご縁</strong>"+save.history.map(x=>{const [m,g]=x.pair.split("__"),mc=character("musha",m),gc=character("megami",g),sp=specialPairs[x.pair];return `<div>${x.date}　⚔ ${mc?.name||m} × 🌸 ${gc?.name||g}${sp?`<br>✨ ${sp.title}`:""}</div>`}).join(""):"<div>まだ組み合わせの記録はありません。</div>";showSection("collection");speak("これまでに結ばれたご縁なのです。",1800)}
 document.getElementById("mushaBtn").onclick=()=>draw("musha");
 document.getElementById("megamiBtn").onclick=()=>draw("megami");
